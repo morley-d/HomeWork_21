@@ -23,4 +23,4 @@ while True:
             print(f"storage_2: {storage_2}")
             print(f"shop_1: {shop_1}")
         except Exception as e:
-            print(f"Произощла ошибка: {e}\n Попробуйте ещё раз.")
+            print(f"Произошла ошибка: {e}\n Попробуйте ещё раз.")
