@@ -1,5 +1,8 @@
 from classes import Store, Shop, Request
 
+# Пример запроса:
+# Доставить 3 Магнитофон из склад_1 в магазин
+
 print("Добро пожаловать в наш логистический сервис!")
 
 storage_1 = Store(items={"Магнитофон": 5, "Патефон": 6, "Ксилофон": 7})
@@ -12,15 +15,12 @@ while True:
     if user_text == "стоп":
         break
     else:
-        # print(storage_1)
-        # print(storage_2)
-        # print(shop_1)
         try:
             request = Request(storages, user_text)
             request.move_product()
+            print("Текущяя заполненость объектов:")
+            print(f"storage_1: {storage_1}")
+            print(f"storage_2: {storage_2}")
+            print(f"shop_1: {shop_1}")
         except Exception as e:
             print(f"Произощла ошибка: {e}\n Попробуйте ещё раз.")
-        # print(f"storage_1: {storage_1}")
-        # print(f"storage_2: {storage_2}")
-        # print(f"shop_1: {shop_1}")
-
