@@ -6,6 +6,13 @@ class Store(Storage):
         self.__items = items
         self.__capacity = capacity
 
+    def __repr__(self):
+        return f"{self.__items, self.__capacity}"
+
+    #  возвращает вместимость склада
+    def get_capacity(self):
+        return self.__capacity
+
     # возвращает список наименований товара
     def get_item_keys(self):
         return self.__items
@@ -17,19 +24,24 @@ class Store(Storage):
                 self.__items[name] += count
             else:
                 self.__items[name] = count
+            return True
         else:
-            print("Недостаточно места на складе")
-            return "Недостаточно места на складе"
+            print("Недостаточно места")
+            return False
 
     #  уменьшает запас items но не ниже 0
     def remove(self, name, count):
+        if name not in self.__items.keys():
+            print("Такого товара нет на складе")
+            return False
         if self.__items[name] >= count:
             self.__items[name] -= count
             if self.__items[name] == 0:
                 del self.__items[name]
+            return True
         else:
             print("Недостаточно товара на складе")
-            return "Недостаточно товара на складе"
+            return False
 
     # возвращает количество свободных мест
     def get_free_space(self):

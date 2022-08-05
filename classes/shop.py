@@ -5,13 +5,24 @@ class Shop(Store):
     def __init__(self, items: dict, capacity=20):
         super().__init__(items, capacity)
 
+    def __repr__(self):
+        return f"{self.get_items(), self.get_capacity()}"
+
     def add(self, name, count):
         if name not in self.get_item_keys() \
                 and self.get_unique_items_count() >= 5:
             print("Нельзя хранить более 5 разных товаров")
-            return "Нельзя хранить более 5 разных товаров"
+            return False
         else:
-            super().add(name, count)
+            if self.get_free_space() >= count:
+                if name in self.get_item_keys():
+                    self.get_items()[name] += count
+                else:
+                    self.get_items()[name] = count
+                return True
+            else:
+                print("Недостаточно места")
+                return False
 
 
 shop_1 = Shop({"Phone": 5, "Macbook": 5})
