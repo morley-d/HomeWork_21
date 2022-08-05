@@ -1,32 +1,14 @@
-from abc import ABC, abstractmethod
-
-
-class Storage(ABC):
-    @abstractmethod
-    def add(self, name, count):
-        pass
-
-    @abstractmethod
-    def remove(self, name, count):
-        pass
-
-    @abstractmethod
-    def get_free_space(self):
-        pass
-
-    @abstractmethod
-    def get_items(self):
-        pass
-
-    @abstractmethod
-    def get_unique_items_count(self):
-        pass
+from classes.storage import Storage
 
 
 class Store(Storage):
     def __init__(self, items: dict, capacity=100):
         self.__items = items
         self.__capacity = capacity
+
+    # возвращает список наименований товара
+    def get_item_keys(self):
+        return self.__items
 
     # увеличивает запас items с учетом лимита capacity
     def add(self, name, count):
@@ -36,13 +18,17 @@ class Store(Storage):
             else:
                 self.__items[name] = count
         else:
+            print("Недостаточно места на складе")
             return "Недостаточно места на складе"
 
     #  уменьшает запас items но не ниже 0
     def remove(self, name, count):
         if self.__items[name] >= count:
             self.__items[name] -= count
+            if self.__items[name] == 0:
+                del self.__items[name]
         else:
+            print("Недостаточно товара на складе")
             return "Недостаточно товара на складе"
 
     # возвращает количество свободных мест
